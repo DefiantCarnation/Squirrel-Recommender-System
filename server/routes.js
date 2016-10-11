@@ -7,5 +7,5 @@ module.exports = function(app){
   })
 
   app.post('/rec/link/:userid', handlers.update);
-  // app.get('/rec/link/:userid', handlers.retrieve);  
+  app.get('/rec/:userid', handlers.retrieve);  
 }

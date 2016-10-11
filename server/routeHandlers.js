@@ -33,4 +33,12 @@ module.exports = {
       console.log('Error updating recommender state ', err);
     })
   },
+
+  retrieve: function(req, res, next) {
+    var userId = req.params.userid;
+    db.KeyVector.findById(userId)
+    .then(function(keyVector) {
+      res.send(JSON.parse(keyVector.get('recommendations')));
+    });
+  },
 };
