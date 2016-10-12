@@ -18,9 +18,9 @@ var Jaccard = function(vector1, vector2) {
     return n + m;
   };
 
-  mins.reduce(add);
-  maxes.reduce(add);
-  return mins/maxes;
+  var numerator = mins.reduce(add);
+  var denominator = maxes.reduce(add);
+  return numerator/denominator;
 };
 
 var initialiseSimmilarities = function(simmilarityArray, userId) {
@@ -83,7 +83,9 @@ module.exports = {
     return request(options)
     .then(function($) {
       var keywordText = $('meta[name=keywords]').attr('content');
-      var keywords = keywordText.split(',');
+      var keywords = keywordText.split(',').map(function(keyword){
+        return keyword.trim();
+      });
       return keywords;
     })
     .catch(function(err) {

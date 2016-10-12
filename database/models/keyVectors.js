@@ -8,11 +8,11 @@ module.exports = function(db) {
       allowNull: false,
     },
     vector: {
-      type: Sequelize.STRING, //JSON object
+      type: Sequelize.STRING(700), //JSON object
       defaultValue: '{}',
     },
     recommendations: {
-      type: Sequelize.STRING, //JSON object
+      type: Sequelize.STRING(700), //JSON object
       defaultValue: '[]',
     }
   });
