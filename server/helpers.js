@@ -220,15 +220,34 @@ module.exports = {
   },
 
   getRecommendations: function(username) {
+    var relevantUser = {};
+    var rawUrls = [];
     return db.User.find({
       where: {username: username},
     })
     .then(function(user) {
-      var userId = user.get('id');
+      relevantUser = user;
+      var userId = relevantUser.get('id');
       return makeUrlCounter(userId, 5);
     })
     .then(function(urlCounter) {
       return counterToArray(urlCounter);
+    })
+    .then(function(urlArray) {
+      rawUrls = urlArray;
+      return relevantUser.getStashedLinks()
+    })
+    .then(function(linkArray) {
+      var userUrls = linkArray.map(function(link) {
+        return link.get('url');
+      })
+      return Promise.all(userUrls);
+    })
+    .then(function(userUrls) {
+      var recommendations = rawUrls.filter(function(url) {
+        return userUrls.indexOf(url) < 0;
+      });
+      return recommendations;
     })
     .catch(function(err) {
       console.log('Error getting recommendations ', err);
