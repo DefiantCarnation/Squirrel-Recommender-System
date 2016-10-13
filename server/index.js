@@ -10,7 +10,7 @@ db.authenticate()
 })
 .catch(function(err) {
   console.log('Error connecting to databse, ', err)
-})
+});
 
 // db.sync({force: true})
 // .then(function(){

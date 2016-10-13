@@ -1,12 +1,13 @@
 var Sequelize = require('sequelize');
 
 module.exports = function(db) {
-  var Link = db.define('links', {
-    url: {
-      type: Sequelize.STRING(200),
+  var Keyword = db.define('keywords', {
+    word: {
+      type: Sequelize.STRING(20),
       unique: true,
       allowNull: false,
     },
   });
-  return Link;
+
+  return Keyword;
 };
